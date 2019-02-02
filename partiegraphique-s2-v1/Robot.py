@@ -23,4 +23,5 @@ class Robot :
         self.A= [self.x, self.y]
         self.B= [self.A[0]-20, self.A[1]+20]
         self.C= [self.A[0]+20, self.B[1]]
+        self.centregravite= 0,0
         
