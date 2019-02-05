@@ -94,7 +94,7 @@ class Controlleur:
         """implemente les rebonds sur les extremites de la fenetre"""
         
         if self.robot.A[0] >= 800 or self.robot.A[0] <=0 or self.robot.A[1]>=800 or self.robot.A[1]<0:   #si il atteint les bords, alors il fait demi tour
-            self.tourner_degree(random.randint(140,180))                                                 #avec un angle aleatoire
+            self.tourner_degree(random.uniform(140,180))                                                 #avec un angle aleatoire
     
     
     
@@ -115,6 +115,6 @@ class Controlleur:
                     collision avec l'obstacle
                 """ 
                    
-                self.tourner_degree(random.randint(140,180))    #note : on doit trouver une meilleure reponse aux collisions, a voir avec
+                self.tourner_degree(random.uniform(140,180))    #note : on doit trouver une meilleure reponse aux collisions, a voir avec
                                                                 #l'arrivee des capteurs
     

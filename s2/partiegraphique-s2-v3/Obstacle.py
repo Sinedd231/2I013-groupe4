@@ -2,6 +2,7 @@
 """
 
 from math import sqrt
+import random
 
 class Obstacle:
 	"""permet de construire les obstacles pour notre robot"""
@@ -31,3 +32,28 @@ class Obstacle:
 		y1 = y0+ self.hauteur
 		
 		return x0,y0,x1,y1
+	
+	
+	@staticmethod
+	def create_dict(canvas,nbr):
+		""" permet de creer un dictionnaire d'obstacles qu'on retournera par la suite
+			la fonction prendra en argument un canvas qui permettra de creer les obstacles et 'nbr' pour nombre d'obstacles voulu
+			j'ai passe la fonction en static pour enlever le self et faciliter l'appel dans le main
+		"""
+		
+		dictionnaire=dict()
+			
+		for i in range(1,nbr+1):
+			
+			obstacle= Obstacle(random.uniform(0,720), random.uniform(*random.choice( [(0,310),(430,720)] )), random.uniform(15,50), random.uniform(15,50))
+			""" petite astuce pour eviter le probleme de l'obstacle qui spawn sur le robot, on va juste empecher la creation d'obstacle
+				sur l'intervalle ]310,430[ sur l'axe y, la ou notre robot se trouvera
+				on va donc selectionner au hasard l'intervalle [0,310] ou [430,720] avec random.choice, ce qui exclut l'intervalle ]310,430[
+				note: * devant random.choice car on renverra une liste en argument pour random.uniform, c'est le langage qui veut ca
+			"""
+			
+			rectangle = canvas.create_rectangle(obstacle.get_coords(), fill='red')
+			dictionnaire["obstacle" + str(i)] = rectangle #str convertit i de int vers string donc les noms seront "obstacle1" "obstacle2" etc...
+		
+		return dictionnaire
+			
