@@ -27,7 +27,7 @@ controlleur.update_coords_dir()
 triangle = ma_fenetre.fenetre.create_polygon(mon_robot.A,mon_robot.B,mon_robot.C)
 
 #on creer les obstacles
-dict_obstacles= Obstacle.create_dict(ma_fenetre.fenetre, 7) # on stockera ces obstacles dans un dictionnaire avec comme cle le nom et comme valeur l'objet qu'on creer via tkinter
+dict_obstacles= Obstacle.create_and_disp_dict(ma_fenetre.fenetre, 100) # on stockera ces obstacles dans un dictionnaire avec comme cle le nom et comme valeur l'objet qu'on creer via tkinter
                                                             # note: le dictionnaire m'a semble etre le plus intuitif sur le coup, notamment 
                                                             # a cause du while dans la fonction check_obstacles du controlleur
                                                             # mais pourquoi pas essayer avec un tableau
