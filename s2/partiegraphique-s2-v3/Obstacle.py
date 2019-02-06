@@ -45,11 +45,11 @@ class Obstacle:
 			
 		for i in range(1,nbr+1):
 			
-			obstacle= Obstacle(random.uniform(0,720), random.uniform(*random.choice( [(0,310),(430,720)] )), random.uniform(15,50), random.uniform(15,50))
+			obstacle= Obstacle(random.uniform(*random.choice( [(0,310),(430,720)] )), random.uniform(*random.choice( [(0,310),(430,720)] )), random.uniform(15,50), random.uniform(15,50))
 			""" petite astuce pour eviter le probleme de l'obstacle qui spawn sur le robot, on va juste empecher la creation d'obstacle
-				sur l'intervalle ]310,430[ sur l'axe y, la ou notre robot se trouvera
-				on va donc selectionner au hasard l'intervalle [0,310] ou [430,720] avec random.choice, ce qui exclut l'intervalle ]310,430[
-				note: * devant random.choice car on renverra une liste en argument pour random.uniform, c'est le langage qui veut ca
+			sur l'intervalle ]310,430[ de l'axe x et y, la ou notre robot se trouvera
+			on va donc selectionner au hasard l'intervalle [0,310] ou [430,720] avec random.choice, ce qui exclut l'intervalle ]310,430[
+			note: * devant random.choice car on renverra une liste en argument pour random.uniform, c'est le langage qui veut ca
 			"""
 			
 			rectangle = canvas.create_rectangle(obstacle.get_coords(), fill='red')
