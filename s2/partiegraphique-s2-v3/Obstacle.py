@@ -36,7 +36,7 @@ class Obstacle:
 	
 	@staticmethod
 	def create_dict(canvas,nbr):
-		""" permet de creer un dictionnaire d'obstacles qu'on retournera par la suite
+		""" permet de creer un dictionnaire d'obstacles, de le retourner et d'afficher ces obstacles
 			la fonction prendra en argument un canvas qui permettra de creer les obstacles et 'nbr' pour nombre d'obstacles voulu
 			j'ai passe la fonction en static pour enlever le self et faciliter l'appel dans le main
 		"""
