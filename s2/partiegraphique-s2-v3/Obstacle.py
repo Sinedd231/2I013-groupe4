@@ -53,14 +53,13 @@ class Obstacle:
 			"""
 			
 			rectangle = canvas.create_rectangle(obstacle.get_coords(), fill='red')
-			dictionnaire["obstacle" + str(i)] = rectangle #str convertit i de int vers string donc les noms seront "obstacle1" "obstacle2" etc...
+			
+			if not(len(canvas.find_overlapping(canvas.coords(rectangle)[0], canvas.coords(rectangle)[1], canvas.coords(rectangle)[2], canvas.coords(rectangle)[3]))>1):
+			#voir les explications sur find overlapping dans Controlleur.py
+				dictionnaire["obstacle" + str(i)] = rectangle 	#str convertit i de int vers string donc les noms seront "obstacle1" "obstacle2" etc...
+			else:
+				canvas.delete(rectangle)
+			#en gros je supprime les doublons, c'est a dire les obstacles qui se chevauchent
 		
-		#on supprime les doublons, c'est a dire les obstacles qui se chevauchent
-		
-		for cle, obstacle in list(dictionnaire.items()): #on itere sur les cles et leurs valeurs en meme temps
-			if len(canvas.find_overlapping(canvas.coords(obstacle)[0], canvas.coords(obstacle)[1], canvas.coords(obstacle)[2], canvas.coords(obstacle)[3]))>1:
-			#voir les explications de find overlapping dans la classe Controlleur
-				del dictionnaire[cle] #on supprime la cle
-				
 		return dictionnaire
 			
