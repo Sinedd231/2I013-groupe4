@@ -45,9 +45,9 @@ class Obstacle:
 			
 		for i in range(1,nbr+1):
 			
-			obstacle= Obstacle(random.uniform(*random.choice( [(0,310),(430,720)] )), random.uniform(*random.choice( [(0,310),(430,720)] )), random.uniform(15,50), random.uniform(15,50))
+			obstacle= Obstacle(random.uniform(*random.choice( [(0,310),(430,720)] )), random.uniform(0,720), random.uniform(15,50), random.uniform(15,50))
 			""" petite astuce pour eviter le probleme de l'obstacle qui spawn sur le robot, on va juste empecher la creation d'obstacle
-			sur l'intervalle ]310,430[ de l'axe x et y, la ou notre robot se trouvera
+			sur l'intervalle ]310,430[ de l'axe x, la ou notre robot se trouvera
 			on va donc selectionner au hasard l'intervalle [0,310] ou [430,720] avec random.choice, ce qui exclut l'intervalle ]310,430[
 			note: * devant random.choice car on renverra une liste en argument pour random.uniform, c'est le langage qui veut ca
 			"""
@@ -55,5 +55,12 @@ class Obstacle:
 			rectangle = canvas.create_rectangle(obstacle.get_coords(), fill='red')
 			dictionnaire["obstacle" + str(i)] = rectangle #str convertit i de int vers string donc les noms seront "obstacle1" "obstacle2" etc...
 		
+		#on supprime les doublons, c'est a dire les obstacles qui se chevauchent
+		
+		for cle, obstacle in list(dictionnaire.items()): #on itere sur les cles et leurs valeurs en meme temps
+			if len(canvas.find_overlapping(canvas.coords(obstacle)[0], canvas.coords(obstacle)[1], canvas.coords(obstacle)[2], canvas.coords(obstacle)[3]))>1:
+			#voir les explications de find overlapping dans la classe Controlleur
+				del dictionnaire[cle] #on supprime la cle
+				
 		return dictionnaire
 			
