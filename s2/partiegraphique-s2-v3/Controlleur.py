@@ -104,11 +104,11 @@ class Controlleur:
         for obstacle in obstacles.values(): #on doit verifier pour chaque obstacle si il y a collision, on itere donc sur les valeurs du dictionnaire
             
             if len(canvas.find_overlapping(canvas.coords(obstacle)[0], canvas.coords(obstacle)[1], canvas.coords(obstacle)[2], canvas.coords(obstacle)[3]))>1:
-                """ find overlapping c'est une simple fonction qui retourne le nombre d'element qui chevauche le canvas
+                """ find overlapping c'est une simple fonction qui retourne les elements qui chevauchent le canvas
                     le canvas etant ici notre fenetre, en appliquant find overlapping a un obstacle, la fonction doit 
-                    renvoyer constamment 1 car cet obstacle chevauchera bien continuellement la fenetre
+                    renvoyer constamment 1 element car cet obstacle chevauchera bien continuellement la fenetre
                     
-                    mais si notre robot touche l'obstacle, la fonction renverra 2 car a l'emplacement precis de l'obstacle, determine
+                    mais si notre robot touche l'obstacle, la fonction en renverra 2 car a l'emplacement precis de l'obstacle, determine
                     par canvas.coords(obstacle), un autre element s'est rajoute
                     
                     on teste donc si le nombre d'element renvoye est plus grand que 1, si oui alors notre robot est rentre en
