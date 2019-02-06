@@ -31,13 +31,18 @@ triangle = ma_fenetre.fenetre.create_polygon(mon_robot.A,mon_robot.B,mon_robot.C
 triangle2= ma_fenetre.fenetre.create_polygon(mon_robot2.A,mon_robot2.B,mon_robot2.C, fill='blue')
 
 #on creer les obstacles, qui seront stocke dans un tableau et on realise l'affichage en meme temps
-obstacles= Obstacle.create_and_disp_obstacle(ma_fenetre.fenetre, 20) 
+obstacles= Obstacle.create_and_disp_obstacle(ma_fenetre.fenetre, 40) 
 
 
-for i in range(2000):
+for i in range(3000):
     controlleur.avancer(ma_fenetre.fenetre, triangle)
     controlleur2.avancer(ma_fenetre.fenetre, triangle2)
+    
+    if i%50==0:
+        controlleur2.tourner_degree(90)
+        
     ma_fenetre.actualiser()
+    
     time.sleep(0.01)    #notre dt
 
 print("FINI")

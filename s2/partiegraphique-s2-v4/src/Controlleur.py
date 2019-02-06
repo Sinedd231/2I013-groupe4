@@ -92,11 +92,9 @@ class Controlleur:
     def check_bord(self):
         """implemente les rebonds sur les extremites de la fenetre"""
         
-        if (self.robot.A[0] >= 900 or self.robot.A[0] <=0 or self.robot.A[1]>=900 or self.robot.A[1]<0
-        or self.robot.B[0] >= 900 or self.robot.B[0] <=0 or self.robot.B[1]>=900 or self.robot.B[1]<0
-        or self.robot.C[0] >= 900 or self.robot.C[0] <=0 or self.robot.C[1]>=900 or self.robot.C[1]<0):
+        if self.robot.A[0] >= 900 or self.robot.A[0] <=0 or self.robot.A[1]>=900 or self.robot.A[1]<0:
                                                                                                         #si il atteint les bords, alors il fait demi tour
-            self.tourner_degree(random.uniform(150,190))                                                #avec un angle aleatoire
+            self.tourner_degree(180)                                               
     
     
     

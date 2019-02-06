@@ -11,7 +11,7 @@ class Fenetre:
     def __init__(self,largeur,hauteur):  #le constructeur aura besoin d'une largeur et d'une hauteur
         self.master=Tk()    #racine de l'interface
         self.fenetre= Canvas(self.master, width=largeur, height=hauteur, bg="white") #fond de couleur blanc, choisie arbitrairement
-        self.master.title("Fenetre")
+        self.master.title("DAAMS")
         self.fenetre.pack() #permet d'afficher la fenetre
         
     def actualiser(self):       #permet d'actualiser l'image

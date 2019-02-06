@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>projet-robot-s2-v4</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.python.pydev.PyDevBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.python.pydev.pythonNature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>src/Controlleur.py</name>
+			<type>1</type>
+			<location>C:/eclipse/workspace/partiegraphique-s2-v4/src/Controlleur.py</location>
+		</link>
+		<link>
+			<name>src/Fenetre.py</name>
+			<type>1</type>
+			<location>C:/eclipse/workspace/partiegraphique-s2-v4/src/Fenetre.py</location>
+		</link>
+		<link>
+			<name>src/Obstacle.py</name>
+			<type>1</type>
+			<location>C:/eclipse/workspace/partiegraphique-s2-v4/src/Obstacle.py</location>
+		</link>
+		<link>
+			<name>src/Robot.py</name>
+			<type>1</type>
+			<location>C:/eclipse/workspace/partiegraphique-s2-v4/src/Robot.py</location>
+		</link>
+		<link>
+			<name>src/mainS2.py</name>
+			<type>1</type>
+			<location>C:/eclipse/workspace/partiegraphique-s2-v4/src/mainS2.py</location>
+		</link>
+	</linkedResources>
+</projectDescription>
