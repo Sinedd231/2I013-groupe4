@@ -7,7 +7,7 @@ Created on 1 fevr. 2019
 from Fenetre import *
 from Robot import *
 from Controlleur import *
-import time, random
+import time
 from Obstacle import *
 
 #on creer la fenetre
