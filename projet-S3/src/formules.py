@@ -1,7 +1,7 @@
 '''
 Created on 7 fevr. 2019
 
-@author: Denis
+@author: Denis, Alexandre
 '''
 
 """fichier qui regroupe toutes les formules et fonctions utiles pour les autres classes"""
