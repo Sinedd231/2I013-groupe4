@@ -17,3 +17,6 @@ il est question ici d'avoir un affichage coherent
 un manuel.txt sera necessaire et urgent
 
 4) pas tres sur si notre structure est bien une structure "MVC"
+
+5) a cause de la facon dont on initialise certaines variables et la facon dont le code fonctionne, on ne peut pas appeler les fonctions dans un ordre au hasard dans le main
+par exemple on doit build le monde seulement apres avoir creer au moins un robot
