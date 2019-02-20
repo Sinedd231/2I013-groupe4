@@ -4,26 +4,30 @@ Created on 14 févr. 2019
 @author: Denis
 '''
 
-from math import sqrt
-import random
-from view.viewer import HAUTEUR
+from .abstract_polygone import Polygone
 
-class Obstacle:
+
+class Obstacle(Polygone):
+    # l'obstacle sera represente par un rectangle
     
-    def __init__(self):
+    def __init__(self, x, y, largeur, hauteur):
         
-        self.x = random.uniform(*random.choice( [(0,310),(430,HAUTEUR) ] ) )
-        self.y = random.uniform(0,HAUTEUR)
-        self.largeur = random.uniform(15,50)
-        self.hauteur = random.uniform(15,50)
-        self.init_coords()
-        
+        self.x = x  # coordonnees
+        self.y = y  # absolues
+        self.largeur = largeur
+        self.hauteur = hauteur
+        self.x1 = self.x + self.largeur  # x du point en bas a droite
+        self.y1 = self.y + self.hauteur  # y du point en bas a droite
     
-    def init_coords(self):
-        """ sur tkinter il faut 2 points pour dessiner un rectangle
-            le coin en haut a gauche, donc xy chez nous, et le coin en bas a droite
-            on doit donc determiner les coordonnees de ce coin
-        """
+    def getVecteurs(self):
         
-        self.x1 = self.x+ sqrt(self.largeur**2 + self.hauteur**2)    #longueur de la diagonale = racine de (hauteur^2 + largeur^2)
-        self.y1 = self.y+ self.hauteur
+        return [    [self.x, self.y],
+                    [self.x1, self.y],
+                    [self.x1, self.y1],
+                    [self.x, self.y1]   ]    
+    
+    def nbrCotes(self):
+        return 4  # parce que rectangle
+    
+    def getCotes(self):
+        return super(Obstacle, self).getCotes()

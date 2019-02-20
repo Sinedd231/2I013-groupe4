@@ -4,8 +4,6 @@ Created on 14 févr. 2019
 @author: Denis
 '''
 
-"""fichier qui regroupe toutes les formules et fonctions utiles pour les autres classes"""
-
 from math import *
 
 
@@ -54,7 +52,7 @@ def scale(a, scalaire):
     return [ scalaire * a[0], scalaire * a[1] ]
 
 
-def rotation_vecteur(a, angle):
+def rotation_radiant(a, angle):
     """retourne a partir d'un vecteur a, un nouveau vecteur issu de la rotation d'un angle 'angle' en radians"""
     
     a0 = a[0] * cos(angle) - a[1] * sin(angle)
@@ -63,21 +61,22 @@ def rotation_vecteur(a, angle):
     return [ a0, a1 ]
 
 
-def rotation_vecteurs(alist,angle):
+def rotation_vecteurs(alist, angle):
     """applique rotation_vecteur a une liste de vecteur alist
     retourne un tableau de vecteurs
     """
     
-    res=[]
+    res = []
     for a in alist:
-        res.append(rotation_vecteur(a, angle))
+        res.append(rotation_radiant(a, angle))
     
     return res
+
 
 def rotation_et_somme_vec(a, angle, b):
     """retourne un vecteur issu de la rotation de a de angle radians puis de la somme avec le vecteur b"""
     
-    return somme_vecteur(rotation_vecteur(a, angle), b)
+    return somme_vecteur(rotation_radiant(a, angle), b)
 
 
 def rotation_et_somme_vecs(alist, angle, b):
@@ -85,22 +84,28 @@ def rotation_et_somme_vecs(alist, angle, b):
     retourne un tableau de vecteurs
     """
     
-    res=[]
+    res = []
     for a in rotation_vecteurs(alist, angle):
         res.append(somme_vecteur(a, b))
     
     return res
 
+
 def normalise_angle(angle):
     """permet de normaliser 'angle' pour qu'il reste dans [-pi, pi] """
     
-    return atan2(sin(angle),cos(angle))
+    return atan2(sin(angle), cos(angle))
 
 
 def convertir_direction_angle(a, b):
     """retourne l'angle en radians correspondant a la direction (a,b) du robot"""
         
-    return atan2(a, b)
+    return atan2(b, a)
+
+
+def convertir_radians_degree(angle):
+    
+    return angle * 180 / pi + 90
 
 
 def tourner_point(ox, oy, angle, P):
@@ -128,3 +133,22 @@ def angle_entre_vecteurs(u, v):
     en radiants 
     """
     return signe_determinant(u, v) * (acos((produit_scalaire(u, v)) / (norme_vecteur(u) * norme_vecteur(v))))
+
+
+def normal_a_gauche(a):
+    """retourne la normale gauche au vecteur a
+    """
+    return [ -a[1], a[0] ]
+
+
+def normal_a_droite(a):
+    """retourne la normale droite au vecteur a
+    """
+    
+    return [ a[1], -a[0] ]
+
+
+def distance(a, b):
+    """retourne la distance entre 2 vecteurs a et b
+    """
+    return norme_vecteur(difference_vecteur(a, b))
