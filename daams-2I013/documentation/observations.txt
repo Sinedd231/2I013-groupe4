@@ -15,3 +15,5 @@ il est question ici d'avoir un affichage coherent
 
 3) confusion au niveau de la structure du code, modifier quelque chose a un endroit n'est pas evident vu les implications des (nombreux) fichiers
 un manuel.txt sera necessaire et urgent
+
+4) pas tres sur si notre structure est bien une structure "MVC"
