@@ -18,8 +18,8 @@ avec draw square ca ne marche meme pas du tout, le robot devient incontrolable a
 la source du probleme n'a pas ete clairement identifiee meme si tout semble indiquer la vitesse angulaire omega du superviseur,
 par ailleurs des modifications sur omega a bien pu montre des effets sur le comportement du robot
 
-j'ai appris que le modele adopte etait sensible aux variations et necessitait de corriger les erreurs de calcul a chaque tour en ajoutant des "termes d'erreur",
-des recherches sont necessaires
+j'ai appris que le modele adopte etait sensible aux variations et necessitait de corriger les erreurs de calcul a chaque tour en ajoutant
+des "termes d'erreur", des recherches sont necessaires
 
 
 3) l'implementation de get distance qui retourne le nombre de pas avant collision sur un obstacle est egalement difficile
@@ -30,3 +30,6 @@ concretement on aura des resultats satisfaisants que si l'obstacle detecte est d
 
 la premiere implementation retournait le plus souvent soit max range soit 0, avec rarement d'entre-deux, ce qui est problematique
 vu l'importance moindre de cette fonction face au probleme 2), on enleve cette fonction en attendant qu'une solution soit trouvee
+
+4) le code est mal commente en ce moment, je commenterai correctement quand on validera les implementations choisies
+inutile de commenter un truc potentiellement faux
