@@ -4,13 +4,13 @@ Created on 18 févr. 2019
 @author: Denis
 '''
 
-from view.viewer import Viewer
-from model.world import World
-from model.robot import Robot
-from view.world_view import WorldView
-from model.map_builder import MapBuilder
-from exceptions.collision_exception import CollisionException
-from exceptions.objectif_atteint_exception import ObjectifException
+from MVC.view.viewer import Viewer
+from MVC.model.world import World
+from MVC.model.robotsim import Robotsim
+from MVC.view.world_view import WorldView
+from MVC.model.map_builder import MapBuilder
+from MVC.exceptions.collision_exception import CollisionException
+from MVC.exceptions.objectif_atteint_exception import ObjectifException
 import time
 
 
@@ -24,7 +24,7 @@ class Simulateur:
     def init_sim(self):
         
         self.world = World()
-        robot = Robot(450, 450, "astroboy", "blue")
+        robot = Robotsim(450, 450, "astroboy", "blue")
         self.world.add_robot(robot)
         
         self.map_builder = MapBuilder()

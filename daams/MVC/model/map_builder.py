@@ -6,8 +6,8 @@ Created on 19 févr. 2019
 from .obstacle import Obstacle
 from .objectif import Objectif
 import random
-from view.viewer import HAUTEUR, LARGEUR
-from utiles import geometrie as geo
+from MVC.view.viewer import HAUTEUR, LARGEUR
+from MVC.utiles import geometrie as geo
 
 
 class MapBuilder:
@@ -30,7 +30,7 @@ class MapBuilder:
         world.define_goal(goal)  # on donne l'objectif a world pour qu'il le transmette a world view
         
         # on genere les obstacles
-        for i in range(random.randint(50, 100)):
+        for i in range(random.randint(0, 1)):
             obstacle = Obstacle(random.uniform(0, LARGEUR),
                                 random.uniform(0, HAUTEUR),
                                 random.uniform(15, 50),

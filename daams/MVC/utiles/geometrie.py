@@ -4,7 +4,7 @@ Created on 19 févr. 2019
 @author: Denis
 '''
 
-import utiles.formules as fm
+import MVC.utiles.formules as fm
 
 
 # fonctions issues de l'ancienne implementation, je sais pas encore si on les gardera vu qu'ils

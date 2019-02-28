@@ -6,20 +6,21 @@ Created on 14 févr. 2019
 
 from .capteur import Capteur
 from .superviseur import Superviseur
-from utiles import formules as fm
+from MVC.utiles import formules as fm
 from .abstract_polygone import Polygone
+from .abstract_robot import Robot
+from math import cos, sin
 
 
-class Robot(Polygone):
+class Robotsim(Polygone,Robot):
     # le robot sera represente par un triangle
     
     def __init__(self, x, y , nom, couleur):
         """arguments: x,y, un nom et une couleur
         """
+        
+        super(Robotsim,self).__init__(x, y)
         self.nom = nom
-        self.x = x  # coordonnees
-        self.y = y  # absolues
-        self.direction = [0, -1]  # fixee, mais ne pas mettre [0,0] ici
         self.couleur = couleur
         
         self.update_coords_dir()  # pour que le robot puisse avoir la bonne pose dès le début
@@ -68,6 +69,21 @@ class Robot(Polygone):
         return 3  # parce que triangle
     
     def getCotes(self):
-        return super(Robot, self).getCotes()
-     
+        return super(Robotsim, self).getCotes()
     
+    
+    def step(self,dt):
+        
+        angle_droite=self.vdroite*dt #on calcule de combien les roues se sont deplaces durant dt en radian
+        angle_gauche=self.vgauche*dt
+        moyenne = (angle_droite + angle_gauche)/2
+        
+        angle= fm.convertir_direction_angle(self.direction[0], self.direction[1])
+        self.x += moyenne*cos(angle)
+        self.y += moyenne*sin(angle)
+        angle += (angle_droite - angle_gauche)/self.largeur
+        self.direction = fm.convertir_angle_direction(angle)
+        
+        self.update_coords_dir()
+        self.update_coords_capteur()
+        

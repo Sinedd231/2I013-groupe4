@@ -4,9 +4,7 @@ Created on 14 févr. 2019
 @author: Denis
 '''
 from .abstract_polygone import Polygone
-from utiles import geometrie as geo
-import random
-
+from MVC.utiles import geometrie as geo
 
 class Capteur(Polygone):
     # le capteur sera represente par un triangle
@@ -21,8 +19,8 @@ class Capteur(Polygone):
         
         self.direction = (-1 * self.robot.direction[0], -1 * self.robot.direction[1])
         self.A = [ self.robot.A[0], self.robot.A[1] ]
-        self.B = [ self.A[0] - 18, self.A[1] + 18 ]
-        self.C = [ self.B[0], self.A[1] - 18 ]
+        self.B = [ self.A[0] - 100, self.A[1] + 5 ]
+        self.C = [ self.B[0], self.A[1] - 5 ]
     
     def getVecteurs(self):
         return [self.A, self.B, self.C]
@@ -45,3 +43,4 @@ class Capteur(Polygone):
                         return True
         return False
     
+
