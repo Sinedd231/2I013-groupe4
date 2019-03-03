@@ -19,26 +19,27 @@ class Simulateur:
     def __init__(self):
         
         self.viewer = Viewer(self)
+        self.robot = Robotsim(450, 450, "astroboy", "blue")
         self.init_sim()
     
     def init_sim(self):
         
         self.world = World()
-        robot = Robotsim(450, 450, "astroboy", "blue")
-        self.world.add_robot(robot)
+        self.world.add_robot(self.robot)
         
         self.map_builder = MapBuilder()
         self.map_builder.build_random(self.world)
         
         self.worldview = WorldView(self.world, self.viewer)
         
-        self.worldview.draw_world()
+        self.worldview.draw_world() #a commenter si on veut debrancher l'affichage
 
     def run_sim(self):
             
         while True:
             try:
-                self.world.step()
+                self.robot.superviseur.step(self.world.dt)
+                self.world.update()
             except CollisionException:
                 print("Collision !")
                 break

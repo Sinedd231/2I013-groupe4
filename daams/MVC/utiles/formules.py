@@ -4,7 +4,7 @@ Created on 14 févr. 2019
 @author: Denis
 '''
 
-from math import *
+from math import cos,sin,atan2,sqrt,radians,pi, acos
 
 
 def somme_vecteur(a, b):

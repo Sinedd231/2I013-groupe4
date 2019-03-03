@@ -6,7 +6,7 @@ Created on 18 févr. 2019
 from MVC.utiles import formules as fm
 
 
-class GoToGoalController:
+class GoToGoalControlleur:
     
     def __init__(self, superviseur):
         """ce controlleur cherchera a aller vers l'objectif quoi qu'il arrive
@@ -32,8 +32,10 @@ class GoToGoalController:
         
         self.set_chemin()
         angle=fm.convertir_direction_angle(self.chemin_vers_goal[0], self.chemin_vers_goal[1])-fm.convertir_direction_angle(self.superviseur.robot.direction[0], self.superviseur.robot.direction[1])
-        v=500 #m/s
+        omega=angle*10 
         
-        self.superviseur.v=v
-        self.superviseur.omega=angle/0.1 #rad/s
+        self.superviseur.v= self.superviseur.robot.vmax/(abs(omega) + 1)**0.5   #on fait diminuer la vitesse quand le robot est en rotation
+                                                                                #avec cette formule, v se rapproche rapidement de 0 quand omega augmente
+                                                                                #de cette manière on se ramene a un comportement alternant move forward - turn 90
+        self.superviseur.omega=omega
     

@@ -17,6 +17,7 @@ class Robot:
         self.vgauche=0.0
         self.rayonroue=0.08 #rayon des roues, choisie au hasard pour l'instant, il faudra le remplacer par la veritable valeur plus tard (en metres)
         self.largeur=0.1 #longueur du robot, choisie au hasard pour l'instant, il faudra le remplacer par la veritable valeur plus tard (en metres)
+        self.vmax=500 #vitesse maximale du robot, il faudra le remplacer par la veritable valeur plus tard
     
     def set_dps(self,vdroite, vgauche):
         

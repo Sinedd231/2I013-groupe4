@@ -76,14 +76,11 @@ class Robotsim(Polygone,Robot):
         
         angle_droite=self.vdroite*dt #on calcule de combien les roues se sont deplaces durant dt en radian
         angle_gauche=self.vgauche*dt
-        moyenne = (angle_droite + angle_gauche)/2
+        moyenne = (angle_droite + angle_gauche)/2 #on en calcule la moyenne
         
         angle= fm.convertir_direction_angle(self.direction[0], self.direction[1])
         self.x += moyenne*cos(angle)
         self.y += moyenne*sin(angle)
         angle += (angle_droite - angle_gauche)/self.largeur
         self.direction = fm.convertir_angle_direction(angle)
-        
-        self.update_coords_dir()
-        self.update_coords_capteur()
         

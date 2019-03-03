@@ -10,6 +10,9 @@ vu la rarete de ces evenements, il se peut que l'algorithme ne gere pas certains
 on devra sans doute passer par un autre algorithme
 
 
+1) SOLUTION : probleme finalement juge non valuable
+
+
 2) l'implementation des 2 roues avec un modele unicycle - differentiel pose probleme
 le robot fait ce qu'on lui demande avec go to goal mais dans le cas ou l'objectif apparait trop pres du robot, et que le robot
 doit effectuer une grande rotation avec peu de marge de manoeuvre, il devient hors de controle
@@ -18,8 +21,14 @@ avec draw square ca ne marche meme pas du tout, le robot devient incontrolable a
 la source du probleme n'a pas ete clairement identifiee meme si tout semble indiquer la vitesse angulaire omega du superviseur,
 par ailleurs des modifications sur omega a bien pu montre des effets sur le comportement du robot
 
-j'ai appris que le modele adopte etait sensible aux variations et necessitait de corriger les erreurs de calcul a chaque tour en ajoutant
-des "termes d'erreur", des recherches sont necessaires
+j'ai appris que le modele adopte etait sensible aux variations et necessitait de corriger les erreurs de calcul a chaque tour en ajoutant des "termes d'erreur",
+des recherches sont necessaires
+
+
+2) SOLUTION : le probleme venait du fait que le robot avancait et tournait en meme temps a pleine vitesse, ce qui pouvait conduire a des calculs d'angles
+improbables, on a donc separe les mouvements en ligne droite et les rotations de sorte que le robot avance, s'arrete et tourne, puis avance a nouveau
+le probleme de "perte de controle" n'a plus ete observe depuis
+
 
 
 3) l'implementation de get distance qui retourne le nombre de pas avant collision sur un obstacle est egalement difficile
@@ -31,5 +40,7 @@ concretement on aura des resultats satisfaisants que si l'obstacle detecte est d
 la premiere implementation retournait le plus souvent soit max range soit 0, avec rarement d'entre-deux, ce qui est problematique
 vu l'importance moindre de cette fonction face au probleme 2), on enleve cette fonction en attendant qu'une solution soit trouvee
 
-4) le code est mal commente en ce moment, je commenterai correctement quand on validera les implementations choisies
-inutile de commenter un truc potentiellement faux
+
+4) le code pour dessiner un carre n'est pas satisfaisant pour moi dans le sens ou il n'est pas robuste, et depend beaucoup trop des vitesses du robot
+reflechir en nombre de tour est une mauvais idee car il suffit de baisser la vitesse angulaire, et on ne dessinera plus un carre si on ne change pas les test
+mais cette solution reste beaucoup plus simple que reflechir en coordonnees

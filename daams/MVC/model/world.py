@@ -13,7 +13,7 @@ class World:
         """les elements de la simulation seront tous presents ici
         """
         self.world_temps = 0.0
-        self.dt = 0.02  # a changer selon la vitesse de la simulation voulue
+        self.dt = 0.02 # a changer selon la vitesse de la simulation voulue
         
         self.robots = []
         self.obstacles = []
@@ -21,13 +21,13 @@ class World:
         self.superviseurs = []
         self.goal = None
     
-    # on effectue un tour de simulation, on pourra trouver d'autre chose a faire durant ce tour
-    def step(self):
+    # on effectue un tour de simulation, dans le lequel on met a jour les coordonnees des objets mobiles
+    #et ou on verifie les collisions
+    def update(self):
         
         for robot in self.robots:
-            
-            robot.superviseur.step()
-            robot.step(self.dt)
+            robot.update_coords_dir()
+            robot.update_coords_capteur()
             self.check_collisions(robot)
 
         self.world_temps += self.dt
