@@ -5,7 +5,6 @@ Created on 14 févr. 2019
 '''
 
 from .capteur import Capteur
-from .superviseur import Superviseur
 from MVC.utiles import formules as fm
 from .abstract_polygone import Polygone
 from .abstract_robot import Robot
@@ -25,10 +24,8 @@ class Robotsim(Polygone,Robot):
         
         self.update_coords_dir()  # pour que le robot puisse avoir la bonne pose dès le début
         
-        self.capteur = Capteur(self)  # on creer son capteur et son superviseur ici pour alleger le code ailleurs
+        self.capteur = Capteur(self)  # on creer son capteur ici
         self.update_coords_capteur()
-        
-        self.superviseur = Superviseur(self)
     
     def update_points_triangle(self):
         # le robot sera represente par un triangle ABC avec A le sommet

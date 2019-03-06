@@ -1,4 +1,4 @@
-PROBLEMES CONNUS:
+﻿PROBLEMES CONNUS:
 
 1) la fonction intersection_polygones a le bon comportement general, mais le test semble trop approximatif
 il y a des cas où la fonction detecte une collision alors qu'il n'y a rien sur l'affichage
@@ -37,7 +37,7 @@ une ligne et on sera bien trop imprecis vu la largeur du capteur, qui est un tri
 
 concretement on aura des resultats satisfaisants que si l'obstacle detecte est droit devant le robot
 
-la premiere implementation retournait le plus souvent soit max range soit 0, avec rarement d'entre-deux, ce qui est problematique
+la premiere implementation retournait le plus souvent soit max range soit 0, avec rarement d'entre-deux, ce qui est problematique,
 vu l'importance moindre de cette fonction face au probleme 2), on enleve cette fonction en attendant qu'une solution soit trouvee
 
 

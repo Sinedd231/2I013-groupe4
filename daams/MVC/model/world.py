@@ -18,7 +18,6 @@ class World:
         self.robots = []
         self.obstacles = []
         self.capteurs = []
-        self.superviseurs = []
         self.goal = None
     
     # on effectue un tour de simulation, dans le lequel on met a jour les coordonnees des objets mobiles
@@ -36,7 +35,6 @@ class World:
         
         self.robots.append(robot)
         self.capteurs.append(robot.capteur)
-        self.superviseurs.append(robot.superviseur)
     
     def add_obstacle(self, obstacle):
         

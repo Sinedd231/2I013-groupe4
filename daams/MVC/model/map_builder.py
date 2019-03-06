@@ -23,9 +23,6 @@ class MapBuilder:
         """
         # on genere l'objectif
         goal = Objectif(random.uniform(0, LARGEUR), random.uniform(0, HAUTEUR))
-            
-        for superviseur in world.superviseurs:
-            superviseur.goal = goal  # tous les superviseurs recoivent le meme objectif
         
         world.define_goal(goal)  # on donne l'objectif a world pour qu'il le transmette a world view
         
