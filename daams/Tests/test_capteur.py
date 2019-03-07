@@ -33,14 +33,16 @@ class TestCapteur(unittest.TestCase):
         self.assertListEqual(self.capteur.getVecteurs(),[[450,450],[350,455],[350,445]])
 
 
-    def TestNbrCotes(self):
+    def testNbrCotes(self):
         self.assertEqual(self.capteur.nbrCotes(),3)
 
-    def TestGetCotes(self):
-        self.assertListEqual(self.capteur.getCotes(),[[450,450],[350,455],[350,445]])
+    def testGetCotes(self):
+        self.assertListEqual(self.capteur.getCotes(),[ [[450,450],[350,455]],
+                                                    [[350,455],[350,445]],
+                                                    [[350,445],[450,450]] ])
 
-    def TestDetect_solides(self):
-        obs1=Obstacle(450,470,10,15)
+    def testDetect_solides(self):
+        obs1=Obstacle(450,450,10,15)
         obs2=Obstacle(800,800,10,10)
         W1=World()
         W2=World()
