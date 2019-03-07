@@ -1,7 +1,7 @@
 # CLASSE ABSTRAITE
 
 
-class Polygone:
+class Polygone(object):
     
     # retourne a partir d'une liste de vecteurs, les cotes correspondants
     # vu que le code est le meme peu importe la classe qui l'utilise, on le
