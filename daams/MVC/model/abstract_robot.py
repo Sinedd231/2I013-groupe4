@@ -6,7 +6,7 @@ Created on 24 févr. 2019
 #CLASSE ABSTRAITE
 
 
-class Robot:
+class Robot(object):
     
     def __init__(self,x,y):
         
