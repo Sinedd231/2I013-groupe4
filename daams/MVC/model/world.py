@@ -1,5 +1,5 @@
 '''
-Created on 14 févr. 2019
+Created on 14 fevr. 2019
 
 @author: Denis
 '''
@@ -7,13 +7,15 @@ from MVC.utiles import geometrie as geo
 from MVC.exceptions.collision_exception import CollisionException
 from MVC.exceptions.objectif_atteint_exception import ObjectifException
 
+DT= 0.02 # a changer selon la vitesse de la simulation voulue
+
 class World:
     
     def __init__(self):
         """les elements de la simulation seront tous presents ici
         """
         self.world_temps = 0.0
-        self.dt = 0.02 # a changer selon la vitesse de la simulation voulue
+        self.dt = DT
         
         self.robots = []
         self.obstacles = []

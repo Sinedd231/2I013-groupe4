@@ -8,7 +8,6 @@ from MVC.model.capteur import Capteur
 from MVC.model.robotsim import Robotsim
 from MVC.model.world import World
 from MVC.model.obstacle import Obstacle
-from MVC.model.abstract_polygone import Polygone
 
 
 class TestCapteur(unittest.TestCase):

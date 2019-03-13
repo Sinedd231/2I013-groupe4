@@ -1,10 +1,10 @@
 '''
-Created on 14 févr. 2019
+Created on 14 fevr. 2019
 
 @author: Denis
 '''
 
-from MVC.controller.strategie import Strategie
+from MVC.controller.strategies import StrategieInterface, GoalStrat, SquareStrat
 
 class Superviseur:
     
@@ -16,21 +16,21 @@ class Superviseur:
         """
         self.robot = robot;
         self.goal = None  # Chaque superviseur aura acces a l'objectif de world, on initialise a None puis on le mettra a jour plus tard
-        self.strategie= Strategie(self) #la classe strategie qui regroupera toutes les strategies realisables par le robot
+        self.interface= StrategieInterface(self)
         
-        #commandes haut niveau, que le superviseur traduira en vitesse roue droite-gauche
-        self.v=0
-        self.omega=0
+        #on prepare toutes les "grosses" strategies
+        self.goalstrat= GoalStrat(self)
+        self.squarestrat= SquareStrat(self)
            
     def step(self,dt):
-        self.strategie.dessiner_carre()  #c'est cette ligne la qu'il faudra modifier, selon la strategie voulue
-        self.translate_command()
+        v, omega = self.interface.get_command(self.squarestrat)
+        self.translate_command(v, omega)
         self.robot.step(dt)
 
     
-    def translate_command(self):
+    def translate_command(self,v,omega):
         
-        v_droite, v_gauche = self.calcul_dps(self.v, self.omega)
+        v_droite, v_gauche = self.calcul_dps(v, omega)
         self.robot.set_dps(v_droite, v_gauche)
         
     def calcul_dps(self,v ,omega):
