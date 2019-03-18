@@ -8,9 +8,8 @@ from MVC.controller.controlleurs import GoToGoalControlleur, MoveForwardControll
 from MVC.view.viewer import HAUTEUR, LARGEUR
 from MVC.model.world import DT
 
-""" les strategies prennent tous un superviseur en argument pour pouvoir voir
-le robot. On joue avec les controlleurs et selon la strategie, on essaie d'en 
-tirer une certaine vitesse et vitesse angulaire qu'on transmettra au superviseur
+""" les strategies prennent tous un superviseur. On joue avec les controlleurs et selon la strategie, 
+on essaie d'en tirer une certaine vitesse et vitesse angulaire qu'on transmettra au superviseur
 """
 
 class LigneStrat():
