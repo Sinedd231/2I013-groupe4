@@ -63,6 +63,11 @@ class MoveForwardControlleur:
     
     def execute(self):
         
+        #tests sur les bords de la fenetre de la simulation
+        if (self.superviseur.robot.A[0] >= LARGEUR or self.superviseur.robot.A[0] <= 0
+        or self.superviseur.robot.A[1] <= 0 or self.superviseur.robot.A[1] >= HAUTEUR):
+            return 0,0
+        
         return self.superviseur.robot.vmax, 0
     
     
