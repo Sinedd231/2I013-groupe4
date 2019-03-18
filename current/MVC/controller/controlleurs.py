@@ -5,6 +5,7 @@ Created on 18 fevr. 2019
 '''
 from MVC.utiles import formules as fm
 from MVC.model.objectif import Objectif
+from MVC.view.viewer import HAUTEUR, LARGEUR
 
 """les controlleurs prennent tous un superviseur en argument pour pouvoir voir
 le robot.Ils codent les mouvements elementaires comme avancer ou tourner,
