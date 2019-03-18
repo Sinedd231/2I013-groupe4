@@ -29,7 +29,7 @@ class Objectif(Polygone):
                     [self.x, self.y1]   ]
         
     def getCotes(self):
-        return super(Objectif, self).getCotes()
+        return super().getCotes()
     
     def nbrCotes(self):
         return 4  # parce que rectangle

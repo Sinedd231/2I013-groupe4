@@ -11,14 +11,14 @@ from .abstract_robot import Robot
 from math import cos, sin
 
 
-class Robotsim(Polygone,Robot):
+class Robotsim(Robot,Polygone):
     # le robot sera represente par un triangle
     
     def __init__(self, x, y , nom, couleur):
         """arguments: x,y, un nom et une couleur
         """
         
-        super(Robotsim,self).__init__(x, y)
+        super().__init__(x, y)
         self.nom = nom
         self.couleur = couleur
         
@@ -54,9 +54,15 @@ class Robotsim(Polygone,Robot):
         
         self.capteur.update_points_triangle() 
                                             
-        self.capteur.A = fm.tourner_point(self.capteur.A[0], self.capteur.A[1], fm.convertir_direction_angle(self.capteur.direction[0], self.capteur.direction[1]), self.capteur.A)
-        self.capteur.B = fm.tourner_point(self.capteur.A[0], self.capteur.A[1], fm.convertir_direction_angle(self.capteur.direction[0], self.capteur.direction[1]), self.capteur.B)
-        self.capteur.C = fm.tourner_point(self.capteur.A[0], self.capteur.A[1], fm.convertir_direction_angle(self.capteur.direction[0], self.capteur.direction[1]), self.capteur.C)
+        self.capteur.A = fm.tourner_point(self.capteur.A[0], self.capteur.A[1], fm.convertir_direction_angle(self.capteur.direction[0], 
+                                                                                                             self.capteur.direction[1]), 
+                                                                                                             self.capteur.A)
+        self.capteur.B = fm.tourner_point(self.capteur.A[0], self.capteur.A[1], fm.convertir_direction_angle(self.capteur.direction[0], 
+                                                                                                             self.capteur.direction[1]), 
+                                                                                                             self.capteur.B)
+        self.capteur.C = fm.tourner_point(self.capteur.A[0], self.capteur.A[1], fm.convertir_direction_angle(self.capteur.direction[0], 
+                                                                                                             self.capteur.direction[1]), 
+                                                                                                             self.capteur.C)
         # similaire a update_coords_dir mais ici on effectue la rotation autour du sommet
         
     def getVecteurs(self):
@@ -66,14 +72,17 @@ class Robotsim(Polygone,Robot):
         return 3  # parce que triangle
     
     def getCotes(self):
-        return super(Robotsim, self).getCotes()
+        return super().getCotes()
     
     
     def step(self,dt):
         
-        angle_droite=self.vdroite*dt #on calcule de combien les roues se sont deplaces durant dt en radian
+        #on calcule de combien les roues se sont deplaces durant dt en radian
+        angle_droite=self.vdroite*dt
         angle_gauche=self.vgauche*dt
-        moyenne = (angle_droite + angle_gauche)/2 #on en calcule la moyenne
+        
+        #on en calcule la moyenne
+        moyenne = (angle_droite + angle_gauche)/2
         
         angle= fm.convertir_direction_angle(self.direction[0], self.direction[1])
         self.x += moyenne*cos(angle)

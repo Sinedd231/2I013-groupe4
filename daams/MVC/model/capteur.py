@@ -29,7 +29,7 @@ class Capteur(Polygone):
         return 3
     
     def getCotes(self):
-        return super(Capteur, self).getCotes()
+        return super().getCotes()
     
     # detecte si oui ou non le capteur a croise un solide, et envoie un signal
     def detect_solides(self, world):

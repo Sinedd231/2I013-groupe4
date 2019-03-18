@@ -13,33 +13,41 @@ from MVC.exceptions.collision_exception import CollisionException
 from MVC.exceptions.objectif_atteint_exception import ObjectifException
 from MVC.model.superviseur import Superviseur
 import time
+from MVC.controller.strategies import GoalStrat, SquareStrat
+#from MVC.model.robot2I013.robot2I013 import Robot2I013
 
 
-class Simulateur:
+class Main:
     
-    def __init__(self):
+    def __init__(self,robot):
         
-        self.viewer = Viewer(self)
-        self.robot = Robotsim(450, 450, "astroboy", "blue") #on creer notre robot
-        self.superviseur = Superviseur(self.robot)  #on creer son superviseur
-                                                    #NOTE: on doit creer un superviseur pour chaque robot
-                                                    #si il ya plusieurs robots, on devra sans doute passer par des tableaux
-        self.init_sim()
+        self.robot=robot
+        
+        if isinstance(self.robot, Robotsim):
+            self.init_sim()
+        else:
+            self.init_reel() #reste a faire
     
     def init_sim(self):
         
+        self.viewer = Viewer(self)
         self.world = World()
         self.world.add_robot(self.robot)
         
         self.map_builder = MapBuilder()
         self.map_builder.build_random(self.world)
-        self.superviseur.define_goal(self.world.goal)   #on donne l'objectif au superviseur, sinon on perd des strategies
-                                                        #on passe par une fonction au lieu du simple affectation pour faciliter le cas
-                                                        #ou on a plusieurs superviseurs
+        
+        self.superviseur= Superviseur(self.robot, SquareStrat(self))
+        
+        #on peut mettre n'importe quel point de la fenetre comme objectif et pas seulement l'objectif de world
+        #mais la simulation n'est pas faite pour, on ne traite en tout cas pas ce cas la.
+        #mais si vous voulez, mettez self.world.goal en 2e parametre pour viser l'objectif de world, mettez [x,y] pour
+        #viser le point x y
+        
+        self.superviseur.redefine_strat(GoalStrat(self,self.world.goal)) #ligne a commenter si vous voulez dessiner un carre
         
         self.worldview = WorldView(self.world, self.viewer)
-        
-        self.worldview.draw_world() #ligne a commenter si on veut debrancher l'affichage
+        self.worldview.draw_world() #ligne a commenter si vous voulez debrancher l'affichage
 
     def run_sim(self):
             
@@ -60,11 +68,9 @@ class Simulateur:
     
 if __name__ == '__main__':
     
-    sim = Simulateur()
+    main = Main(Robotsim(450, 450, "astroboy", "blue")) #on creer le robot ici
     
-    sim.run_sim()
+    main.run_sim()
     
-    print("la simulation a dure %d tours" % (sim.world.world_temps / sim.world.dt))
-        
-    sim.worldview.viewer.fenetre.mainloop()
+    print("la simulation a dure %d tours" % (main.world.world_temps / main.world.dt))
     

@@ -21,5 +21,6 @@ class Robot(object):
     
     def set_dps(self,vdroite, vgauche):
         
+        #vdroite, vgauche en m/s
         self.vdroite=vdroite
         self.vgauche=vgauche

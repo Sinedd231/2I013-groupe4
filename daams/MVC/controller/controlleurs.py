@@ -4,20 +4,30 @@ Created on 18 fevr. 2019
 @author: Denis
 '''
 from MVC.utiles import formules as fm
+from MVC.model.objectif import Objectif
 
+"""les controlleurs codent les mouvements elementaires comme avancer ou tourner,
+on renvoie a chaque fois un couple vitesse- vitesse angulaire pour les strategies
+"""
 
 class GoToGoalControlleur:
     
-    def __init__(self, superviseur):
+    def __init__(self, superviseur,goal):
         """ce controlleur cherchera a aller vers l'objectif quoi qu'il arrive
         arguments : un superviseur
         """
-        self.superviseur = superviseur
+        
+        self.superviseur= superviseur
+        self.goal = goal
         self.chemin_vers_goal = [0, 0]  # on initialise le vecteur objectif au hasard, il sera correctement mis a jour par la suite
         
     def calcul_chemin(self):
         
-        c = self.superviseur.goal.centre()
+        if isinstance(self.goal, Objectif):
+            c = self.goal.centre()
+        else:
+            c = self.goal
+            
         u = c[0] - self.superviseur.robot.x
         v = c[1] - self.superviseur.robot.y
         
@@ -31,12 +41,14 @@ class GoToGoalControlleur:
     def execute(self):
         
         self.set_chemin()
-        angle=fm.convertir_direction_angle(self.chemin_vers_goal[0], self.chemin_vers_goal[1])-fm.convertir_direction_angle(self.superviseur.robot.direction[0], self.superviseur.robot.direction[1])
+        angle=fm.convertir_direction_angle(self.chemin_vers_goal[0], self.chemin_vers_goal[1])-fm.convertir_direction_angle(self.superviseur.robot.direction[0], 
+                                                                                                                            self.superviseur.robot.direction[1])
         omega=angle*10 
         
-        return self.superviseur.robot.vmax/(abs(omega) + 1)**0.5, omega    #on fait diminuer la vitesse quand le robot est en rotation
-                                                                        #avec cette formule, v se rapproche rapidement de 0 quand omega augmente
-                                                                        #de cette maniere on se ramene a un comportement alternant move forward - turn 9 
+        #on fait diminuer la vitesse quand le robot est en rotation
+        #avec cette formule, v se rapproche rapidement de 0 quand omega augmente
+        #de cette maniere on se ramene a un comportement alternant move forward - turn
+        return self.superviseur.robot.vmax/(abs(omega) + 1)**0.5, omega 
 
 
 class MoveForwardControlleur:
@@ -53,20 +65,22 @@ class MoveForwardControlleur:
         return self.superviseur.robot.vmax, 0
     
     
-class Turn90Controlleur:
+class TurnControlleur:
     
-    def __init__(self,superviseur):
-        """ce controlleur fera tourner le robot de 90 degrees
-        arguments : un superviseur
+    def __init__(self,superviseur,angle):
+        """ce controlleur fera tourner le robot de angle degrees
+        arguments : un superviseur, un angle en degrees
         """
         
         self.superviseur=superviseur
-        self.chemin_vers_goal =  fm.rotation_degree(self.superviseur.robot.direction, 90) #on doit calculer le vecteur rotation qu'une seule fois
+        self.angle=angle
+        self.chemin_vers_goal =  fm.rotation_degree(self.superviseur.robot.direction, self.angle) #on doit calculer le vecteur rotation qu'une seule fois
     
     
     def execute(self):
         
-        angle=fm.convertir_direction_angle(self.chemin_vers_goal[0], self.chemin_vers_goal[1])-fm.convertir_direction_angle(self.superviseur.robot.direction[0], self.superviseur.robot.direction[1])
-                
-        return 0, angle*10
+        angle=fm.convertir_direction_angle(self.chemin_vers_goal[0], self.chemin_vers_goal[1])-fm.convertir_direction_angle(self.superviseur.robot.direction[0], 
+                                                                                                                            self.superviseur.robot.direction[1])
+        omega=angle*10        
+        return 0, omega
     

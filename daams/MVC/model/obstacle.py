@@ -30,4 +30,4 @@ class Obstacle(Polygone):
         return 4  # parce que rectangle
     
     def getCotes(self):
-        return super(Obstacle, self).getCotes()
+        return super().getCotes()

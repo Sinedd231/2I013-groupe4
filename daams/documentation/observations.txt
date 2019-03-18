@@ -2,45 +2,32 @@
 
 1) la fonction intersection_polygones a le bon comportement general, mais le test semble trop approximatif
 il y a des cas où la fonction detecte une collision alors qu'il n'y a rien sur l'affichage
-ce probleme survient surtout au demarrage de la simulation et avec un grand nombre d'obstacle
-Map builder semble aussi laisser passer des obstacles qui chevauchent le robot, donc on peut avoir des le debut
-un obstacle sur le robot, meme si ce cas est plus rare
+ce problème survient surtout au démarrage de la simulation et avec un grand nombre d'obstacle
+Map builder semble aussi laisser passer des obstacles qui chevauchent le robot, donc on peut avoir dès le debut
+un obstacle sur le robot, même si ce cas est plus rare
 
-vu la rarete de ces evenements, il se peut que l'algorithme ne gere pas certains cas particuliers
+vu la rareté de ces évènements, il se peut que l'algorithme ne gère pas certains cas particuliers
 on devra sans doute passer par un autre algorithme
 
 
-1) SOLUTION : probleme finalement juge non valuable
+2) l'implementation de get distance qui retourne le nombre de pas avant collision sur un obstacle est également 
+difficile on a toute les fonctions pour l'implementer, mais le soucis c'est que en travaillant sur seulement 
+1 point, on travaillera au final sur une ligne et on sera bien trop imprécis vu la largeur du capteur, qui est 
+un triangle
 
+concrètement on aura des résultats satisfaisants que si l'obstacle détecté est droit devant le robot
 
-2) l'implementation des 2 roues avec un modele unicycle - differentiel pose probleme
-le robot fait ce qu'on lui demande avec go to goal mais dans le cas ou l'objectif apparait trop pres du robot, et que le robot
-doit effectuer une grande rotation avec peu de marge de manoeuvre, il devient hors de controle
+la première implementation retournait le plus souvent soit max range soit 0, avec rarement d'entre-deux, ce qui est 
+problématique, mais vu l'importance moindre de cette fonction face aux autres problèmes, on enlève cette fonction en 
+attendant qu'une solution soit trouvée
 
-avec draw square ca ne marche meme pas du tout, le robot devient incontrolable apres la premiere rotation
-la source du probleme n'a pas ete clairement identifiee meme si tout semble indiquer la vitesse angulaire omega du superviseur,
-par ailleurs des modifications sur omega a bien pu montre des effets sur le comportement du robot
+3) l'ordre des instructions dans init_sim doivent suivre un ordre précis, on ne peut pas déclarer les éléments n'importe où,
+par exemple goal_strat doit être créer après le superviseur (ou en même temps) et après que mapbuilder ait finit de build le monde.
+De manière générale le code est peu flexible
 
-j'ai appris que le modele adopte etait sensible aux variations et necessitait de corriger les erreurs de calcul a chaque tour en ajoutant des "termes d'erreur",
-des recherches sont necessaires
+4) Le code actuel (à date du 18/03) ne convient pas encore au robot réel,
+on doit donc adapter le code (plus particulièrement la partie superviseur - strategies) pour coller au code du robot réel, 
+notamment au niveau des unités
 
-
-2) SOLUTION : le probleme venait du fait que le robot avancait et tournait en meme temps a pleine vitesse, ce qui pouvait conduire a des calculs d'angles
-improbables, on a donc separe les mouvements en ligne droite et les rotations de sorte que le robot avance, s'arrete et tourne, puis avance a nouveau
-le probleme de "perte de controle" n'a plus ete observe depuis
-
-
-
-3) l'implementation de get distance qui retourne le nombre de pas avant collision sur un obstacle est egalement difficile
-on a toute les fonctions pour l'implementer, mais le soucis c'est que en travaillant sur seulement 1 point, on travaillera sur 
-une ligne et on sera bien trop imprecis vu la largeur du capteur, qui est un triangle
-
-concretement on aura des resultats satisfaisants que si l'obstacle detecte est droit devant le robot
-
-la premiere implementation retournait le plus souvent soit max range soit 0, avec rarement d'entre-deux, ce qui est problematique,
-vu l'importance moindre de cette fonction face au probleme 2), on enleve cette fonction en attendant qu'une solution soit trouvee
-
-
-4) le code pour dessiner un carre n'est pas satisfaisant pour moi dans le sens ou il n'est pas robuste, et depend beaucoup trop des vitesses du robot
-reflechir en nombre de tour est une mauvais idee car il suffit de baisser la vitesse angulaire, et on ne dessinera plus un carre si on ne change pas les test
-mais cette solution reste beaucoup plus simple que reflechir en coordonnees
+5) problemes au niveau des unites, on obtient des vitesses impossibles vu les dimensions du robot (dans nos unites), on doit trouver
+les bonnes unités et convertir en fonction
