@@ -6,8 +6,9 @@ Created on 18 fevr. 2019
 from MVC.utiles import formules as fm
 from MVC.model.objectif import Objectif
 
-"""les controlleurs codent les mouvements elementaires comme avancer ou tourner,
-on renvoie a chaque fois un couple vitesse- vitesse angulaire pour les strategies
+"""les controlleurs prennent tous un superviseur en argument pour pouvoir voir
+le robot.Ils codent les mouvements elementaires comme avancer ou tourner,
+et renvoie a chaque fois un couple vitesse- vitesse angulaire pour les strategies
 """
 
 class GoToGoalControlleur:
