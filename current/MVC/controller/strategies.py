@@ -5,7 +5,6 @@ Created on 5 mars 2019
 '''
 
 from MVC.controller.controlleurs import GoToGoalControlleur, MoveForwardControlleur, TurnControlleur
-from MVC.view.viewer import HAUTEUR, LARGEUR
 from MVC.model.world import DT
 
 """ les strategies prennent tous un superviseur. On joue avec les controlleurs et selon la strategie, 
