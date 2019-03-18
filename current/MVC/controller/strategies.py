@@ -25,13 +25,7 @@ class LigneStrat():
         self.controlleur=MoveForwardControlleur(self.superviseur)
         
     def get_command(self):
-        
-        #tests sur les bords de la fenetre de la simulation
-        
-        if (self.superviseur.robot.A[0] >= LARGEUR or self.superviseur.robot.A[0] <= 0
-        or self.superviseur.robot.A[1] <= 0 or self.superviseur.robot.A[1] >= HAUTEUR):
-            return 0,0
-        
+       
         #si on a pas atteint la distance fixee
         if (self.distance < self.distancemax):
             v, omega= self.controlleur.execute()
