@@ -8,9 +8,8 @@ from MVC.controller.controlleurs import GoToGoalControlleur, MoveForwardControll
 from MVC.view.viewer import HAUTEUR, LARGEUR
 from MVC.model.world import DT
 
-""" les strategies prennent tous un superviseur en argument pour pouvoir voir
-le robot. On joue avec les controlleurs et selon la strategie, on essaie d'en 
-tirer une certaine vitesse et vitesse angulaire qu'on transmettra au superviseur
+""" les strategies prennent tous un superviseur. On joue avec les controlleurs et selon la strategie, 
+on essaie d'en tirer une certaine vitesse et vitesse angulaire qu'on transmettra au superviseur
 """
 
 class LigneStrat():
@@ -73,11 +72,11 @@ class Turn90Strat():
         v, omega= self.controlleur.execute()
         
         #on n'atteindra jamais l'angle exacte voulue, on fixe donc
-        #la precision arbitrairement a 0.1
+        #une precision arbitrairement a 0.1 rad/s
         
         if (abs(omega)<0.1):
             #si le robot tourne a une vitesse inferieure a cette precision, on
-            #estime qu'on a fini la rotation
+            #estime qu'il a fini la rotation
             return 0,0
         else:
             return v,omega
