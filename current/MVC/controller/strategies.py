@@ -6,6 +6,7 @@ Created on 5 mars 2019
 
 from MVC.controller.controlleurs import GoToGoalControlleur, MoveForwardControlleur, TurnControlleur
 from MVC.model.world import DT
+from MVC.view.viewer import HAUTEUR, LARGEUR
 
 """ les strategies prennent tous un superviseur. On joue avec les controlleurs et selon la strategie, 
 on essaie d'en tirer une certaine vitesse et vitesse angulaire qu'on transmettra au superviseur
@@ -24,7 +25,12 @@ class LigneStrat():
         self.controlleur=MoveForwardControlleur(self.superviseur)
         
     def get_command(self):
-       
+        
+        #tests sur les bords de la fenetre de la simulation
+        if (self.superviseur.robot.A[0] >= LARGEUR or self.superviseur.robot.A[0] <= 0
+        or self.superviseur.robot.A[1] <= 0 or self.superviseur.robot.A[1] >= HAUTEUR):
+            return 0,0
+        
         #si on a pas atteint la distance fixee
         if (self.distance < self.distancemax):
             v, omega= self.controlleur.execute()
