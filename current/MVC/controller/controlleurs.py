@@ -5,7 +5,6 @@ Created on 18 fevr. 2019
 '''
 from MVC.utiles import formules as fm
 from MVC.model.objectif import Objectif
-from MVC.view.viewer import HAUTEUR, LARGEUR
 
 """les controlleurs prennent tous un superviseur en argument pour pouvoir voir
 le robot.Ils codent les mouvements elementaires comme avancer ou tourner,
@@ -64,13 +63,7 @@ class MoveForwardControlleur:
     
     def execute(self):
         
-        #tests sur les bords de la fenetre de la simulation
-        if (self.superviseur.robot.A[0] >= LARGEUR or self.superviseur.robot.A[0] <= 0
-        or self.superviseur.robot.A[1] <= 0 or self.superviseur.robot.A[1] >= HAUTEUR):
-            return 0,0
-        
         return self.superviseur.robot.vmax, 0
-    
     
 class TurnControlleur:
     
