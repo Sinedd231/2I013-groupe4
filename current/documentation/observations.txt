@@ -29,5 +29,8 @@ De manière générale le code est peu flexible
 on doit donc adapter le code (plus particulièrement la partie superviseur - strategies) pour coller au code du robot réel, 
 notamment au niveau des unités
 
-5) problemes au niveau des unites, on obtient des vitesses impossibles vu les dimensions du robot (dans nos unites), on doit trouver
+MAJ (20/03) pas du tout sûr du début de l'implémentation du code pour le robot réel, mais on voit déjà que le code écrit jusque là
+est trop adapté à la simulation et pas assez au réel, le passage au réel est plutôt difficile 
+
+5) confusions au niveau des unites, on obtient des vitesses impossibles vu les dimensions du robot (dans nos unites), on doit trouver
 les bonnes unités et convertir en fonction

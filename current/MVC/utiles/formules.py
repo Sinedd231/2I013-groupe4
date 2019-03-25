@@ -107,9 +107,13 @@ def convertir_angle_direction(a):
     return [cos(a),sin(a)]
 
 
-def convertir_degree_radians(angle):
+def radians_to_degrees(angle):
     
     return 180 * angle / pi
+
+def degrees_to_radians(angle):
+    
+    return angle *pi/180
 
 
 def tourner_point(ox, oy, angle, P):
