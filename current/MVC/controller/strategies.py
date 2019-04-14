@@ -21,7 +21,6 @@ class LigneStrat():
         self.superviseur=superviseur
         self.distance=0
         self.distancemax=distancemax
-        self.superviseur.robot.reset_encoder()
 
     def get_command(self):
 
@@ -34,28 +33,6 @@ class LigneStrat():
             return 0,0
 
 
-#class Turn90Strat():
-#    """on tourne de 90 degrees
-#    """
-
-#    def __init__(self,superviseur):
-
-#        self.superviseur=superviseur
-#        self.superviseur.robot.reset_encoder()
-#        self.angle_parcouru=0
-
-#    def get_command(self):
-
-#        if (self.angle_parcouru < 82):  #on a une imprecision de 8 degrees dans la simulation et
-                                        #il faut 82 degrees pour en faire 90, la source du probleme
-                                        #doit encore etre trouvee
-#            self.angle_parcouru =
-#            print(self.angle_parcouru)
-#            return 0,10
-#        else:
-#            return 0,0
-
-
 class SquareStrat():
     """on fait dessiner un carre au robot
     """
@@ -65,8 +42,11 @@ class SquareStrat():
         self.superviseur= superviseur
 
         #on a besoin de sous strategies ici
-        self.strat_avancer = LigneStrat(self.superviseur,0.1)
-        self.strat_tourner= Turn90Strat(self.superviseur)
+        self.strat_avancer = LigneStrat(self.superviseur,5)
+        self.strat_tourner= TournerGaucheStrat(self.superviseur,30)
+        
+        self.reset=True #on a besoin de cette variable pour reinitialiser correctement
+                        #les encodeurs
 
     def get_command(self):
         #on fait alterner les sous strategies et on
@@ -77,11 +57,17 @@ class SquareStrat():
         v_avancer, omega_avancer = self.strat_avancer.get_command()
 
         if (v_avancer==0 and omega_avancer==0):
-
+            
+            if (self.reset):    #on ne doit reinitialiser qu'une
+                                #seule fois, sinon le robot tournera a l'infini
+                self.superviseur.robot.reset_encoder()
+                self.reset=False
+           
             v_tourner, omega_tourner = self.strat_tourner.get_command()
 
             if (v_tourner==0 and omega_tourner==0):
-                self.strat_avancer=LigneStrat(self.superviseur,0.1)
+                self.superviseur.robot.reset_encoder()
+                self.strat_avancer=LigneStrat(self.superviseur,5)
 
             return v_tourner, omega_tourner
 
@@ -89,7 +75,8 @@ class SquareStrat():
             #on actualise le vecteur rotation au cas ou on commencerait la
             #rotation le prochain tour
 
-            self.strat_tourner=Turn90Strat(self.superviseur)
+            self.strat_tourner=TournerGaucheStrat(self.superviseur,30)
+            self.reset= True
 
         return v_avancer,omega_avancer
 
@@ -120,7 +107,6 @@ class TournerDroiteStrat():
     def __init__(self,superviseur,angle):
 
         self.superviseur = superviseur
-        self.superviseur.robot.reset_encoder()
         self.distance_parcourue = 0
         self.distance_a_parcourir = (angle/360)*self.superviseur.robot.circonference
 
@@ -130,7 +116,7 @@ class TournerDroiteStrat():
         self.distance_parcourue = (self.superviseur.robot.get_encoder()[0]*pi*self.superviseur.robot.rayonroue)/180
         #print("distance parcourue {}/{}".format(self.distance_parcourue, self.distance_a_parcourir))
         if abs(self.distance_parcourue) < self.distance_a_parcourir :
-            return 0, -5
+            return 0, -2
         else:
             return 0,0
 
@@ -143,14 +129,14 @@ class TournerGaucheStrat():
     def __init__(self,superviseur,angle):
 
         self.superviseur = superviseur
-        self.superviseur.robot.reset_encoder()
         self.distance_parcourue = 0
         self.distance_a_parcourir = (angle/360)*self.superviseur.robot.circonference
 
     def get_command(self):
-        self.distance_parcourue = (self.superviseur.robot.get_motor_position()[1]*pi*self.superviseur.robot.rayonroue)/180
+        self.distance_parcourue = (self.superviseur.robot.get_encoder()[1]*pi*self.superviseur.robot.rayonroue)/180
+        #print("distance parcourue {}/{}".format(self.distance_parcourue, self.distance_a_parcourir))
         if abs(self.distance_parcourue) < self.distance_a_parcourir :
-           return 0 ,5
+           return 0 ,2
         else:
            return 0,0
 
