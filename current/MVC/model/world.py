@@ -76,4 +76,3 @@ class World:
                     
                     if geo.intersection_polygones(elem, robot):  # le test en lui meme
                         raise CollisionException()
-    

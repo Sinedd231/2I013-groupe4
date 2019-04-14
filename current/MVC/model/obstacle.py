@@ -31,3 +31,4 @@ class Obstacle(Polygone):
     
     def getCotes(self):
         return super().getCotes()
+

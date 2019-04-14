@@ -134,4 +134,4 @@ class Robot2I013(object):
         img= Image.open(stream).copy()
         stream.close()
         return img
-    
+

@@ -13,8 +13,8 @@ from MVC.exceptions.collision_exception import CollisionException
 from MVC.exceptions.objectif_atteint_exception import ObjectifException
 from MVC.model.superviseur import Superviseur
 import time
-from MVC.controller.strategies import SquareStrat
-#from MVC.model.robot_adapter import RobotAdapter
+from MVC.controller.strategies import SquareStrat, LigneStrat, TournerDroiteStrat
+from MVC.model.robot_adapter import RobotAdapter
 
 
 class Main:
@@ -37,7 +37,7 @@ class Main:
         self.map_builder = MapBuilder()
         self.map_builder.build_random(self.world)
 
-        self.superviseur= Superviseur(self.robot, SquareStrat(self))
+        self.superviseur= Superviseur(self.robot, TournerDroiteStrat(self,120))
 
         self.worldview = WorldView(self.world, self.viewer)
         self.worldview.draw_world() #ligne a commenter si vous voulez debrancher l'affichage
@@ -49,7 +49,7 @@ class Main:
         self.world.add_robot(self.robot)
 
         #on evitera GoalStrat tout simplement parce que world n'a pas d'objectif (pour l'instant)
-        self.superviseur= Superviseur(self.robot, SquareStrat(self))
+        self.superviseur= Superviseur(self.robot, LigneStrat(self,50))
 
 
     def run(self):
@@ -82,11 +82,12 @@ class Main:
             if self.robot.get_distance() < 3000:
                 self.robot.stop()
                 break
+            time.sleep(self.world.dt)
 
 
 if __name__ == '__main__':
 
-    main = Main(Robotsim(450, 450, "astroboy", "blue")) #on creer le robot ici
+    main = Main(Robotsim(450,450,"aa","blue")) #on creer le robot ici
 
     main.run()
 

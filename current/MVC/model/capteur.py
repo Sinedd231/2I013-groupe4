@@ -42,5 +42,4 @@ class Capteur(Polygone):
                     if geo.intersection_polygones(elem, self):  # le test en lui meme
                         return True
         return False
-    
 

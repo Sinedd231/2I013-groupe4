@@ -41,5 +41,4 @@ class MapBuilder:
 
             if not intersecte:
                 world.add_obstacle(obstacle)
-        
-            
+

@@ -37,3 +37,4 @@ class Superviseur:
     def redefine_strat(self,strategie):
 
         self.strategie= strategie
+

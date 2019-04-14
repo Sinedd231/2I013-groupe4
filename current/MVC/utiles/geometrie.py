@@ -127,3 +127,4 @@ def check_proximite(polygone1, polygone2):
     c2, r2 = cercle_circonscrit(polygone2)
     
     return fm.distance(c1, c2) <= r1 + r2
+

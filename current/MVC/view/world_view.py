@@ -90,4 +90,3 @@ class WorldView():
         self.update_robots()
         self.update_capteurs()
         self.viewer.actualiser()
-        

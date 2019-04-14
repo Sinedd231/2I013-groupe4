@@ -7,7 +7,7 @@ Created on 14 fevr. 2019
 from .capteur import Capteur
 from MVC.utiles import formules as fm
 from .abstract_polygone import Polygone
-from math import cos, sin
+from math import cos, sin, pi
 
 
 class Robotsim(Polygone):
@@ -22,11 +22,13 @@ class Robotsim(Polygone):
         self.direction=[1,0]
         self.vdroite=0.0
         self.vgauche=0.0
-        self.rayonroue=0.08
-        self.largeur=0.1
-        self.vmax=500
+        self.rayonroue=66.5/200
+        self.largeur=117/100
+        self.circonference=self.largeur*pi
+        self.vmax=50
         self.nom = nom
         self.couleur = couleur
+        self.angle_total = 0
 
         self.rotation_moteur_droite=0
         self.rotation_moteur_gauche=0
@@ -91,17 +93,22 @@ class Robotsim(Polygone):
 
     def step(self,dt):
 
-        #on calcule de combien les roues se sont deplaces durant dt en degrees
+        #on calcule de combien les roues se sont deplaces durant dt en radians
         angle_droite=self.vdroite*dt
         angle_gauche=self.vgauche*dt
+        self.angle_total += angle_droite
+        #print("angle roue droite = {} rad".format( self.angle_total))
 
-        self.rotation_moteur_droite+=angle_droite
-        self.rotation_moteur_gauche+=angle_gauche
+        self.rotation_moteur_droite+=fm.radians_to_degrees(angle_droite)
+        #print(self.rotation_moteur_droite)
+        self.rotation_moteur_gauche+=fm.radians_to_degrees(angle_gauche)
 
         #on en calcule la moyenne
-        moyenne = (angle_droite + angle_gauche)/2
+        moyenne = angle_droite + angle_gauche/2
 
         angle= fm.convertir_direction_angle(self.direction[0], self.direction[1])
+        #print("Angle robot={}".format(angle))
+
         self.x += moyenne*cos(angle)
         self.y += moyenne*sin(angle)
         angle += (angle_droite - angle_gauche)/self.largeur
@@ -114,5 +121,4 @@ class Robotsim(Polygone):
 
     def get_encoder(self):
 
-        return self.rotation_moteur_droite, self.rotation_moteur_gauche
-
+        return self.rotation_moteur_gauche, self.rotation_moteur_droite

@@ -33,3 +33,4 @@ class Objectif(Polygone):
     
     def nbrCotes(self):
         return 4  # parce que rectangle
+
