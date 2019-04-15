@@ -6,6 +6,7 @@ Created on 5 mars 2019
 '''
 
 from math import *
+from MVC.utiles import formules as fm
 
 """ les strategies prennent tous un superviseur. On joue avec les encoders et selon la strategie,
 on essaie d'en tirer une certaine vitesse et vitesse angulaire qu'on transmettra au superviseur
@@ -139,4 +140,112 @@ class TournerGaucheStrat():
            return 0 ,2
         else:
            return 0,0
+       
+        
+class TriangleStrat():
+    
+    def __init__(self,superviseur):
+        
+        self.superviseur = superviseur
+        self.strat_avancer = LigneStrat(self.superviseur,10)
+        self.strat_tourner= TournerGaucheStrat(self.superviseur,40)
+        self.resest = True
+        
+    def get_command(self):
+        
+        v_avancer, omega_avancer = self.strat_avancer.get_command()
+
+        if (v_avancer==0 and omega_avancer==0):
+            #print([self.superviseur.robot.x,self.superviseur.robot.y])
+            
+            if (self.reset):    #on ne doit reinitialiser qu'une
+                                #seule fois, sinon le robot tournera a l'infini
+                self.superviseur.robot.reset_encoder()
+                self.reset=False
+           
+            v_tourner, omega_tourner = self.strat_tourner.get_command()
+
+            if (v_tourner==0 and omega_tourner==0):
+                self.superviseur.robot.reset_encoder()
+                self.strat_avancer=LigneStrat(self.superviseur,10)
+
+            return v_tourner, omega_tourner
+
+        else:
+            print([self.superviseur.robot.x,self.superviseur.robot.y])
+            #on actualise le vecteur rotation au cas ou on commencerait la
+            #rotation le prochain tour
+
+            self.strat_tourner=TournerGaucheStrat(self.superviseur,40)
+            self.reset= True
+
+        return v_avancer,omega_avancer
+    
+    
+class PolygoneStrat():
+    
+    def __init__(self,superviseur,cotes):
+        
+        self.cotes = cotes
+        self.angle = (360/self.cotes)/3
+        self.superviseur = superviseur
+        self.strat_avancer = LigneStrat(self.superviseur,30/self.cotes)
+        self.strat_tourner= TournerGaucheStrat(self.superviseur,self.angle)
+        self.resest = True
+        
+    def get_command(self):
+        
+        v_avancer, omega_avancer = self.strat_avancer.get_command()
+
+        if (v_avancer==0 and omega_avancer==0):
+            #print([self.superviseur.robot.x,self.superviseur.robot.y])
+            
+            if (self.reset):    #on ne doit reinitialiser qu'une
+                                #seule fois, sinon le robot tournera a l'infini
+                self.superviseur.robot.reset_encoder()
+                self.reset=False
+           
+            v_tourner, omega_tourner = self.strat_tourner.get_command()
+
+            if (v_tourner==0 and omega_tourner==0):
+                self.superviseur.robot.reset_encoder()
+                self.strat_avancer=LigneStrat(self.superviseur,30/self.cotes)
+
+            return v_tourner, omega_tourner
+
+        else:
+            print([self.superviseur.robot.x,self.superviseur.robot.y])
+            #on actualise le vecteur rotation au cas ou on commencerait la
+            #rotation le prochain tour
+
+            self.strat_tourner=TournerGaucheStrat(self.superviseur,self.angle)
+            self.reset= True
+
+        return v_avancer,omega_avancer
+    
+    
+    
+class TourStrat():
+    
+    def __init__(self,superviseur):
+        
+        self.superviseur = superviseur
+        self.strat_tourner= TournerGaucheStrat(self.superviseur,30)
+        self.strat_avancer1 = LigneStrat(self.superviseur,400)
+        self.strat_avancer2 = LigneStrat(self.superviseur,800)
+        self.etape = 1
+        
+    def get_command(self):
+        
+        v_avancer, omega_avancer = self.strat_avancer1.get_command()
+        
+        if self.etape==1:
+            self.strat_avancer1.get_command()
+            self.etape = 2
+        
+        if self.etape==2:
+            self.strat_tourner.get_command()
+            self.etape = 3
+            
+            
 
